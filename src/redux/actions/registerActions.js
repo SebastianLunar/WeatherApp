@@ -6,7 +6,7 @@ export const actionRegisterAsync = (name, email, password, image) => {
         const auth = getAuth()
         createUserWithEmailAndPassword(auth, email, password)
             .then(async ({ user }) => {
-                await updateProfile(auth.currentUser, { displayName: name }, { phoneNumber: phone })
+                await updateProfile(auth.currentUser, { displayName: name })
                 dispatch(actionRegisterSync(name, email, password, image))
             })
             .catch(err => {

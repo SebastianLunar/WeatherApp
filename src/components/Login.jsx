@@ -1,14 +1,11 @@
 import React from 'react';
-import logo from '../assets/Logo1.png'
 import icong from '../assets/google.png'
 import iconf from '../assets/facebook.png'
 import { Boton, Input, SOCIAL } from '../styles/Global';
 import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import useForm from '../hooks/useForm';
-import { actionLoginAsync, loginFacebook, loginGoogle } from '../redux/actions/actionLogin';
-
-
+import { actionLoginAsync, loginFacebook, loginGoogle } from '../redux/actions/loginActions';
 
 const Login = () => {
     const dispatch = useDispatch()
@@ -29,7 +26,6 @@ const Login = () => {
     return (
         <>
             <div style={{textAlign: "center", marginTop: "65px"}}>
-                <img src={logo} alt="" />
                 <h1>Sign In</h1>
                 <form action="" onSubmit={handleSubmit}>
                     <Input type="email" name="email" placeholder="Email" value={formValue.email} onChange={handleChange} style={{marginBottom: "10px"}} />
@@ -42,7 +38,6 @@ const Login = () => {
                     <h4>Sign in with</h4>
                     <SOCIAL>
                         <img src={icong} alt="" onClick={() => dispatch(loginGoogle())} />
-                        <img src={line} alt="" />
                         <img src={iconf} alt="" onClick={() => dispatch(loginFacebook())}/>
                     </SOCIAL>
                 </div>

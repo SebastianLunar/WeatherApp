@@ -1,7 +1,7 @@
 import { getAuth, signInWithEmailAndPassword, signInWithPopup, signOut } from "firebase/auth"
-import { facebook, google } from "../../Firebase/firebaseConfig"
+import { facebook, google } from "../../firebase/firebaseConfig"
 import { typesLogin } from "../types/types"
-import { actionRegisterSync } from "./actionRegister"
+import { actionRegisterSync } from "./registerActions"
 
 //Login
 export const actionLoginAsync = (email, pass) => {

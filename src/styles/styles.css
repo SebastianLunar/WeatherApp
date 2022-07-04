@@ -1,0 +1,21 @@
+input{
+    border: none;
+    background-color: #2E3562;
+    border-radius: 44px;
+    width: 358px; height: 44px;
+    padding: 0 1rem;
+}
+
+.entrada{
+    border: none;
+    background-color: #2E3562;
+    border-radius: 44px;
+    width: 358px;
+    height: 44px;
+    padding: 0 1rem;
+    color: white;
+}
+
+::placeholder{
+    color: white;
+}
