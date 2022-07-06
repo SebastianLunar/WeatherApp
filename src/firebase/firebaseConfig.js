@@ -1,10 +1,11 @@
 import { initializeApp } from "firebase/app";
 import { FacebookAuthProvider, getAuth, GoogleAuthProvider } from "firebase/auth";
-import {getFirestore} from "firebase/firestore"
+import { getFirestore } from "firebase/firestore";
 
 const firebaseConfig = {
     apiKey: "AIzaSyAmjcXj-P518wpyPTAyt9DiUrgAsi99_vo",
     authDomain: "weather-sl.firebaseapp.com",
+    databaseURL: "https://weather-sl-default-rtdb.firebaseio.com",
     projectId: "weather-sl",
     storageBucket: "weather-sl.appspot.com",
     messagingSenderId: "797878280540",

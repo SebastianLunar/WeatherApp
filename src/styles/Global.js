@@ -38,14 +38,17 @@ export const DIVInput = styled.div`
     margin: 1rem;
 `;
 export const Input = styled.input`
-    border: none;
-    background-color: #2E3562;
-    border-radius: 44px;
-    width: 326px; height: 44px;
-    padding: 0 1rem;
-    ::placeholder{
-        color: black
-    };
+    display: inline-block;
+    width: 85%;
+    height: 30px;
+    -webkit-border-radius: 25px;
+    -moz-border-radius: 25px;
+    border-radius: 25px;
+    border: 0;
+    font-size: 18px;
+    padding: 5px;
+    margin: 7px 15px;
+    text-align: center;
     :focus{
         outline-color: none;
     }
