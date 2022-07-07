@@ -1,5 +1,5 @@
 import { addDoc, collection, deleteDoc, doc, getDocs, query, updateDoc, where } from "firebase/firestore"
-import { database } from "../../Firebase/firebaseConfig"
+import { database } from "../../firebase/firebaseConfig"
 import { typesBadges } from "../types/types"
 
 //Editar
@@ -81,6 +81,7 @@ export const addSync = (value) => {
 //Eliminar
 export const deleteAsync = (id) => {
     return async (dispatch) => {
+        id= parseInt(id, 10)
         const Placas = collection(database, "badges")
         const q = query(Placas, where("id", "==", id))
         const datos = await getDocs(q)

@@ -1,5 +1,6 @@
 import { applyMiddleware, combineReducers, compose, createStore } from "redux";
 import thunk from "redux-thunk";
+import { badgesReducers } from "../reducers/badgesReducers";
 import { loginReducer } from "../reducers/loginReducers";
 import { registerReducer } from "../reducers/registerReducers";
 
@@ -8,6 +9,7 @@ const composeEnhancers = (typeof window !== 'undefined' && window.__REDUX_DEVTOO
 const reducers = combineReducers({
     loginStore: loginReducer, 
     registerStore: registerReducer,
+    badgesStore: badgesReducers,
 })
 
 export const store = createStore(

@@ -33,7 +33,7 @@ const Navbar = () => {
                     <IMG src={logo} alt="Logo" /><span>WeatherAPP</span>
                 </Link>
                 <Link style={{ textDecoration: "none", color: "white" }} to="/profile">
-                    Profile
+                    Badges
                 </Link>
             </INNER>
         </NAV>

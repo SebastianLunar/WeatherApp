@@ -3,8 +3,8 @@ import searchICO from '../assets/search.png'
 import { GetCurrent } from '../helpers/GetCurrent';
 import styled from 'styled-components'
 import { Input } from '../styles/Global';
-import { GetData } from '../helpers/GetData';
 import Navbar from '../containers/Navbar';
+import Footer from '../containers/Footer';
 
 const HEADER = styled.div`
     position: relative;
@@ -47,6 +47,16 @@ const CARD = styled.div`
 `
 const Saved = styled.div`
     width: 358px;
+    margin-left: 8px;
+    background-color: white;
+    position: absolute;
+    z-index: 99;
+    box-shadow: 1px 2px 5px rgb(0 0 0 / 20%);
+`
+const HISTORIAL = styled.div`
+    width: 358px;
+    background-color: white;
+    cursor: pointer;
 `
 const Tag = styled.h6`
     font-size: 14px; font-weight: 500; margin: 0;
@@ -60,8 +70,7 @@ const Mainvalue = styled.h6`
 
 const Home = () => {
     const [values, setValues] = useState({})
-    // const [result, setResult] = useState([])
-    // const [current, setCurrent] = useState([])
+    const [busquedas, setBusquedas] = useState([])
     const [WIND1, setWIND] = useState("")
     const [WEATHER1, setWEATHER] = useState("")
     const [maindata1, setmaindata] = useState("")
@@ -74,22 +83,16 @@ const Home = () => {
         })
     }
     const { search } = values
-
-
-    const busquedas = JSON.parse(localStorage.getItem("busquedas"))
+    
     const handleSubmit = async (e) => {
         e.preventDefault();
-        const result = await GetData(search)
+        setBusquedas(JSON.parse(localStorage.getItem("busquedas")))
         const current = await GetCurrent(search)
 
         const WIND = current.wind
         const WEATHER = current.weather[0]
         const maindata = current.main
         const visibilidad = current.visibility / 1000
-
-
-        console.log(WIND, maindata, visibilidad)
-
         setWEATHER(WEATHER)
         setWIND(WIND)
         setmaindata(maindata)
@@ -100,30 +103,59 @@ const Home = () => {
         }
         console.log(busqueda)
         if (busquedas == null) {
-            let busquedas = [];
+            setBusquedas([]);
             busquedas.push(busqueda)
             localStorage.setItem("busquedas", JSON.stringify(busquedas));
         } else {
             busquedas.push(busqueda)
             localStorage.setItem("busquedas", JSON.stringify(busquedas));
         }
+        handleClose()
+    }
+
+    const [show, setShow] = useState("none");
+
+    const handleClose = () => setShow("none");
+    const handleShow = () => setShow("block");
+
+    const picking = async ({target})=>{
+        const search = target.innerHTML
+        const current = await GetCurrent(search)
+
+        const WIND = current.wind
+        const WEATHER = current.weather[0]
+        const maindata = current.main
+        const visibilidad = current.visibility / 1000
+        setWEATHER(WEATHER)
+        setWIND(WIND)
+        setmaindata(maindata)
+        setvisibilidad(visibilidad)
+        handleClose()
     }
 
     return (
-
-        <div>
+        <div style={{height: "100vh"}}>
             <Navbar />
             <HEADER>
                 <Searchform onSubmit={handleSubmit}>
                     <Input
                         type="text"
                         placeholder="Enter a city name"
-                        autoComplete='search'
+                        autoComplete='off'
                         name='search'
                         onChange={handleInputChange}
+                        onClick={handleShow}
                     />
                     <img style={{ marginLeft: "1rem", width: "1rem", marginRight: "10px" }} src={searchICO} alt="" />
-                    <Saved></Saved>
+                    <Saved style={{display: `${show}`}}>
+                        {
+                            busquedas.map(i => (
+                                <HISTORIAL onClick={picking}>
+                                    <h6>{i.name}</h6>
+                                </HISTORIAL>
+                            ))
+                        }
+                    </Saved>
                 </Searchform>
             </HEADER>
             <Searchwrapper>
@@ -143,16 +175,14 @@ const Home = () => {
                     </CARD>
                 </DIVsearch>
             </Searchwrapper>
-            <div className='d-flex justify-content-center align-items-center'>
+            <div className='d-flex justify-content-center align-items-center' style={{marginBottom: "14.5rem"}}>
                 <img src={`http://openweathermap.org/img/wn/${WEATHER1.icon}@2x.png`} alt="" />
                 <div>
                     <Mainvalue>{maindata1.temp}° {WEATHER1.description}.</Mainvalue>
                     <Value>Feels Like: {maindata1.feels_like} Low: {maindata1.temp_min}° High: {maindata1.temp_max}°</Value>
                 </div>
             </div>
-            <div>
-
-            </div>
+            <Footer style={{position: "absolute"}}/>
         </div>
     );
 };

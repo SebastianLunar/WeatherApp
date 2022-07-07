@@ -4,16 +4,10 @@ export const Boton = styled.button`
     background-color: #2BE7E8;
     border-radius: 35px;
     font-size: 18px;
-    width: 358px; height: 44px;
+    width: 300px; height: 44px;
     margin: 0 auto;
     border: none;
     color: white;
-    &.down{
-        position: absolute;
-        bottom: 40px;
-        right: 0;
-        left: 0;
-    }
 `;
 
 export const SOCIAL = styled.div`
@@ -25,8 +19,7 @@ export const SOCIAL = styled.div`
 export const REGISTER = styled.div`
     text-align: center;
     border-radius: 25px;
-    border: 1px solid black;
-    width: 45%;
+    width: 56%;
     display: flex;
     flex-direction: column;
     justify-content: center;

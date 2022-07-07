@@ -9,6 +9,29 @@ import { actionRegisterAsync } from '../redux/actions/registerActions';
 import { Formik, Form, Field } from 'formik'
 import * as Yup from 'yup'
 import '../styles/styles.css'
+import styled from 'styled-components';
+import background from '../assets/back2.jpg'
+
+const BACK = styled.div`
+    background-image: url(${background});
+    background-size: cover;
+    background-repeat: no-repeat;
+    width: -webkit-fill-available;
+    height: -webkit-fill-available;
+    position: absolute;
+    z-index: 0;
+`
+const CONTENT = styled.div`
+    text-align: center;
+    position: absolute;
+    width: 40%;
+    z-index: 1;
+    height: 100%;
+    background-color: rgb(255 255 255 / 60%);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+`
 
 
 const Register = () => {
@@ -23,41 +46,44 @@ const Register = () => {
 
     return (
         <>
-            <REGISTER>
-                <h1>Sign Up</h1>
-                <Formik
-                    initialValues={{
-                        name: '',
-                        email: '',
-                        password: '',
-                        image: 'https://res.cloudinary.com/dd5yolnde/image/upload/v1656300664/buffalo-sprint3/user_fa0maw.png'
-                    }}
-                    validationSchema={SignupSchema}
-                    onSubmit={values => {
-                        dispatch(actionRegisterAsync(values.name, values.email, values.password, values.image))
-                    }}
-                >
-                    {({ errors, touched }) => (
-                        <Form>
-                            <Field className="entrada" type="text" placeholder="Full name" name="name" style={{ marginBottom: "10px" }} />
-                            {errors.name && touched.name ? (<div>{errors.name}</div>) : null}
-                            <Field className="entrada" type="email" placeholder="Email" name="email" style={{ marginBottom: "10px" }} />
-                            {errors.email && touched.email ? (<div>{errors.email}</div>) : null}
-                            <Field className="entrada" type="password" placeholder="Password" name="password" style={{ marginBottom: "54px" }} />
-                            {errors.password && touched.password ? (<div>{errors.password}</div>) : null}
-                            <Boton type='submit'>Sign Up</Boton>
-                        </Form>
-                    )}
-                </Formik>
-                <div>
-                    <h4>OR Sign in with</h4>
-                    <SOCIAL>
-                        <img src={icong} alt="" onClick={() => dispatch(loginGoogle(), navigate('/home'))} />
-
-                        <img src={iconf} alt="" onClick={() => dispatch(loginFacebook(), navigate('/home'))} />
-                    </SOCIAL>
-                </div>
-            </REGISTER>
+            <BACK></BACK>
+            <CONTENT>
+                <REGISTER>
+                    <h1>Sign Up</h1>
+                    <Formik
+                        initialValues={{
+                            name: '',
+                            email: '',
+                            password: '',
+                            image: 'https://res.cloudinary.com/dd5yolnde/image/upload/v1656300664/buffalo-sprint3/user_fa0maw.png'
+                        }}
+                        validationSchema={SignupSchema}
+                        onSubmit={values => {
+                            dispatch(actionRegisterAsync(values.name, values.email, values.password, values.image),
+                            navigate("/home"))
+                        }}
+                    >
+                        {({ errors, touched }) => (
+                            <Form>
+                                <Field className="entrada" type="text" placeholder="Full name" name="name" style={{ marginBottom: "10px" }} />
+                                {errors.name && touched.name ? (<div>{errors.name}</div>) : null}
+                                <Field className="entrada" type="email" placeholder="Email" name="email" style={{ marginBottom: "10px" }} />
+                                {errors.email && touched.email ? (<div>{errors.email}</div>) : null}
+                                <Field className="entrada" type="password" placeholder="Password" name="password" style={{ marginBottom: "54px" }} />
+                                {errors.password && touched.password ? (<div>{errors.password}</div>) : null}
+                                <Boton type='submit'>Sign Up</Boton>
+                            </Form>
+                        )}
+                    </Formik>
+                    <div>
+                        <h4>OR Sign in with</h4>
+                        <SOCIAL>
+                            <img src={icong} style={{cursor: "pointer"}} alt="" onClick={() => dispatch(loginGoogle(), navigate('/home'))} />
+                            <img src={iconf} style={{cursor: "pointer"}} alt="" onClick={() => dispatch(loginFacebook(), navigate('/home'))} />
+                        </SOCIAL>
+                    </div>
+                </REGISTER>
+            </CONTENT>
         </>
     );
 };
